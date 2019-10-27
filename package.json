@@ -1,5 +1,8 @@
 {
   "name": "ivan_chat",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^12.11.7"
+  }
 }

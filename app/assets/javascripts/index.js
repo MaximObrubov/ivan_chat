@@ -2,16 +2,24 @@
 // All this logic will automatically be available in application.js.
 
 
-class Chat {
+;(function (w, $) {
   
-  constructor() {
+  function Chat() {
+    this.$root = $("body")
+  }
     
-  }
+  Chat.prototype.subscribe = function () {
+    this.send("chat subscribed");
+  };
   
-  send(message: 'string') {
+  
+  Chat.prototype.send = function (message) {  
     console.group("%c Custom log:", "background: lightgreen; color: orange; font-size: 16px;");
-    console.log("message was send: ${message}");
+    console.log(message);
     console.groupEnd();
-  }
+  };
   
-}
+  w.Chat = Chat;
+
+  
+})(window, jQuery);

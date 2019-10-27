@@ -3,6 +3,17 @@
   <%= render "index/chat/header" %>
   <%= render "index/chat/body" %>
   <%= render "index/chat/footer" %>
+  
+  
+  <script type='text/javascript'>
+    ;(function (w) {
+      if (w.Chat) {
+        new w.Chat().subscribe();
+      } else {
+        throw "Chat module not persisted"
+      }
+    })(window);
+  </script>
 </div>
 
 
