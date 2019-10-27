@@ -22,6 +22,7 @@
     
     // subscribe on send message
     document.body.addEventListener('ajax:success', self._onMessageReceived.bind(self));
+    document.body.addEventListener('ajax:error', self._onMessageError.bind(self));
   };
   
   
@@ -34,6 +35,14 @@
     this.$body.append(self._drawMessage(data.message));
     self.$input.val('');
     self.$sendBtn.prop('disabled', 'disabled');
+  };
+  
+  
+  Chat.prototype._onMessageError = function (event) {
+    var self = this,
+        detail = event.detail,
+        statusText = detail[1];
+    alert(statusText);
   };
   
   
