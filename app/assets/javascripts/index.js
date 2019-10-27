@@ -18,27 +18,12 @@
     
     $input.on('keyup', function (e) {
       var value = this.value;
-      
+    
       $sendBtn.prop('disabled', function (index, _btnValue) {
         return !(value && value.length && value.length > 0);
       });      
     });
-    
-    
-    $sendBtn.on("click", function (e) {
-      self._send($input[0].value);
-    })
-    
     this._send("chat subscribed");
-  };
-  
-  
-  // PRIVATE METHODS
-  
-  Chat.prototype._send = function (message) {  
-    console.group("%c Custom log:", "background: lightgreen; color: orange; font-size: 16px;");
-    console.log(message);
-    console.groupEnd();
   };
   
   w.Chat = Chat;
