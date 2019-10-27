@@ -1,36 +1,5 @@
 {
-  "name": "chat",
-  "version": "0.0.0",
+  "name": "ivan_chat",
   "private": true,
-  "scripts": {
-    "start": "./bin/www",
-    "start:watch": "nodemon",
-    "build": "tsc & node-sass --output public/stylesheets src/stylesheets"
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "**/*.test.ts",
-      "**/*.spec.ts",
-      ".git",
-      "node_modules"
-    ],
-    "watch": [
-      "src"
-    ],
-    "exec": "yarn start",
-    "ext": "ts"
-  },
-  "dependencies": {
-    "bootstrap": "^4.3.1",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "morgan": "~1.9.1",
-    "node-sass": "^4.13.0",
-    "nodemon": "^1.19.4",
-    "pug": "2.0.0-beta11",
-    "ts-node": "^8.4.1",
-    "typescript": "^3.6.4"
-  }
+  "dependencies": {}
 }
