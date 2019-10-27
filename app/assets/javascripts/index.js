@@ -8,6 +8,18 @@
     this.$chatFooter = this.$root.find('.chat-footer');
     this.$input = this.$chatFooter.find('.chat-footer-input');
     this.$sendBtn = this.$chatFooter.find('.chat-footer-send-button');
+    
+    if (this._checkLocalStorage()) {
+      try {
+        this.history = JSON.parse(localStorage.getItem("history")) || []; 
+      } catch (e) {
+        this.history = [];
+      }
+      this._restoreFromHistory();
+      this._scrollDown();
+    } else {
+      console.warn("No local storage supported");
+    }
   }
     
   Chat.prototype.subscribe = function () {
@@ -43,7 +55,7 @@
     this._addMessage(data.message);
     self.$input.val('');
     self.$sendBtn.prop('disabled', 'disabled');
-    self.$chatBody.animate({scrollTop: self.$chatBody.prop('scrollHeight')}, 400)
+    self._scrollDown();
   };
   
   
@@ -56,17 +68,54 @@
   
   
   Chat.prototype._addMessage = function (message, isSend) {
-    var $message = this._drawMessage(message, isSend);
-    this.$messages.append($message);
+    this._drawMessage(message, isSend);
+    this._pushToHistory(message, isSend);
   };
   
   
   Chat.prototype._drawMessage = function (message, isSend) {
+    this.$messages.append(this._constructMessage(message, isSend));
+  }
+  
+  
+  Chat.prototype._constructMessage = function (message, isSend) {
     var $message = $("<div/>", {"class": "chat-body-message"}),
         $text = $("<span/>", {"class": "message-text", "text": message});
     $message.append($text);
     if (isSend === true) $message.addClass('send');
     return $message;
+  };
+  
+  Chat.prototype._scrollDown = function () {
+    var self = this;
+    self.$chatBody.animate({scrollTop: self.$chatBody.prop('scrollHeight')}, 400);
+  };
+  
+  
+  Chat.prototype._checkLocalStorage = function () {
+    var test = 'test';
+    try {
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch(e) {
+      return false;
+    }
+  };
+  
+  
+  Chat.prototype._pushToHistory = function (message, isSend) {
+    this.history.push({message: message, isSend: !!isSend});
+    localStorage.setItem("history", JSON.stringify(this.history));
+  };
+  
+  
+  Chat.prototype._restoreFromHistory = function () {
+    if (Array.isArray(this.history) && (this.history.length > 0)) {
+      for (var i = 0, l = this.history.length; i < l; i++) {
+        this._drawMessage(this.history[i].message, this.history[i].isSend);
+      }
+    }
   };
   
   
