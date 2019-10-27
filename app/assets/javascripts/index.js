@@ -4,6 +4,7 @@
     this.$root = $('.chat');
     this.$chatHeader = this.$root.find('.chat-header');
     this.$chatBody = this.$root.find('.chat-body');
+    this.$messages = this.$chatBody.find('.chat-body-messages');
     this.$chatFooter = this.$root.find('.chat-footer');
     this.$input = this.$chatFooter.find('.chat-footer-input');
     this.$sendBtn = this.$chatFooter.find('.chat-footer-send-button');
@@ -55,7 +56,8 @@
   
   
   Chat.prototype._addMessage = function (message, isSend) {
-    this.$chatBody.append(this._drawMessage(message, isSend));
+    var $message = this._drawMessage(message, isSend);
+    this.$messages.append($message);
   };
   
   
