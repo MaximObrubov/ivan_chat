@@ -3,7 +3,16 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .chat {
+  @import "chat/common";
   @import "chat/header";
   @import "chat/body";
   @import "chat/footer";
+  
+  margin: 100px auto;
+  width: 760px;
+  height: 500px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  flex-direction: column;
 }

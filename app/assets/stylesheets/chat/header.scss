@@ -1,3 +1,33 @@
 .chat-header  {
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 20px;
   
+  &-user {
+    &:before {
+      content: "";
+      position: relative;
+      height: 100%;
+      vertical-align: middle;
+    }
+    .avatar { 
+      $size: 60px;
+      overflow: hidden;
+      vertical-align: middle;
+      width: $size;
+      height: $size;
+      border-radius: 50%;
+      background: image-url("/images/ivan.jpg");
+      background-size: auto $size;
+      background-position: center center;
+      display: inline-block;
+    }
+    .info {
+      display: inline-block;
+      padding-left: 10px;
+      vertical-align: middle;
+      .name {
+        font-weight: bold;
+      }
+    }
+  }
 }

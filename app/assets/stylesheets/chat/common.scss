@@ -1,0 +1,16 @@
+.avatar { 
+  $size: 50px;
+  $size_lg: 70px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: image-url("/images/ivan.jpg");
+  background-size: auto $size;
+  background-position: center center;
+  display: inline-block;
+  width: $size;
+  height: $size;
+  &-lg {
+    width: $size_lg;
+    height: $size_lg;
+  }
+}
