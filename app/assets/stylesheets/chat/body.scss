@@ -1,3 +1,5 @@
+@import "../variables";
+
 .chat-body {
   margin: 20px 0;
   display: -webkit-flex;
@@ -5,4 +7,22 @@
   flex: 1 1 auto;
   overflow-y: scroll;
   flex-direction: column;
+  padding: 0 20px;
+  
+  &-message {
+    margin-bottom: 10px;
+    .message-text {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 10px;
+      background-color: $main;
+    }
+    &.send {
+      text-align: right;
+      .message-text {
+        background-color: $dark-red;
+        color: white;
+      }
+    }
+  }
 }

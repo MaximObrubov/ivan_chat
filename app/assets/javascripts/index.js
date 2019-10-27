@@ -2,11 +2,11 @@
   
   function Chat() {
     this.$root = $('.chat');
-    this.$header = this.$root.find('.chat-header');
-    this.$body = this.$root.find('.chat-body');
-    this.$footer = this.$root.find('.chat-footer');
-    this.$input = this.$footer.find('.chat-footer-input');
-    this.$sendBtn = this.$footer.find('.chat-footer-send-button');
+    this.$chatHeader = this.$root.find('.chat-header');
+    this.$chatBody = this.$root.find('.chat-body');
+    this.$chatFooter = this.$root.find('.chat-footer');
+    this.$input = this.$chatFooter.find('.chat-footer-input');
+    this.$sendBtn = this.$chatFooter.find('.chat-footer-send-button');
   }
     
   Chat.prototype.subscribe = function () {
@@ -21,8 +21,15 @@
     });
     
     // subscribe on send message
+    document.body.addEventListener('ajax:beforeSend', self._onMessageBefore.bind(self));
     document.body.addEventListener('ajax:success', self._onMessageReceived.bind(self));
     document.body.addEventListener('ajax:error', self._onMessageError.bind(self));
+  };
+  
+  
+  Chat.prototype._onMessageBefore = function (event) {
+    var self = this;
+    this._addMessage(self.$input.val(), true);
   };
   
   
@@ -32,9 +39,10 @@
         data = detail[0], 
         status = detail[1], 
         xhr = detail[2];    
-    this.$body.append(self._drawMessage(data.message));
+    this._addMessage(data.message);
     self.$input.val('');
     self.$sendBtn.prop('disabled', 'disabled');
+    self.$chatBody.animate({scrollTop: self.$chatBody.prop('scrollHeight')}, 400)
   };
   
   
@@ -46,11 +54,16 @@
   };
   
   
-  Chat.prototype._drawMessage = function (message) {
-    var $message = $("<div/>", {
-          "class": "chat-body-message",
-          "text": message,
-        });
+  Chat.prototype._addMessage = function (message, isSend) {
+    this.$chatBody.append(this._drawMessage(message, isSend));
+  };
+  
+  
+  Chat.prototype._drawMessage = function (message, isSend) {
+    var $message = $("<div/>", {"class": "chat-body-message"}),
+        $text = $("<span/>", {"class": "message-text", "text": message});
+    $message.append($text);
+    if (isSend === true) $message.addClass('send');
     return $message;
   };
   
